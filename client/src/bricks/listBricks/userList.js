@@ -8,10 +8,8 @@ import LeaveAction from './leaveAction';
 
 const UserList = (props) => {
   const [users, setUsers] = useState([
-    { id: 1, name: 'Tonda', role: 'Creator' },
-    { id: 2, name: 'Čeněk', role: 'Invited' },
-    { id: 3, name: 'Magda', role: 'Invited' },
-    // Add more users as needed
+    { id: 1, name: 'TondaVondra', role: 'Creator' },
+    { id: 2, name: 'JandaPecinka', role: 'Invited' },
   ]);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);

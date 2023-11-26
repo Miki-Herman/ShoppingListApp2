@@ -1,0 +1,19 @@
+.App {
+    margin: 30px;
+  }
+  
+  .user-header{
+    margin-top: 30px;
+  }
+  .user-list{
+    margin-top: 10px;
+  }
+  
+  .shopping-list{
+    background-color: #FAF9F6;
+  }
+  
+  .change-user{
+    margin-bottom: 15px;
+  }
+  

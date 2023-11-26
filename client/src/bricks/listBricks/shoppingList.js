@@ -6,14 +6,8 @@ import Icon from '@mdi/react';
 import { mdiWindowClose } from '@mdi/js';
 import Action from './itemAction';
 
-const ShoppingList = () => {
-  const [items, setItems] = useState([
-    { id: 1, name: 'Husa', quantity: 2, type: 'ks' },
-    { id: 2, name: 'Bílé zelí', quantity: 1, type: 'kg' },
-    { id: 3, name: 'Červené zelí', quantity: 3, type: 'g' },
-    { id: 4, name: 'Mouka', quantity: 5, type: 'ks' },
-    { id: 5, name: 'Rohlíky', quantity: 10, type: 'ks' },
-  ]);
+const ShoppingList = (props) => {
+  const [items, setItems] = useState(props.items);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);

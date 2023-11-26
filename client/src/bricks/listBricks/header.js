@@ -8,7 +8,7 @@ import { mdiPencil, mdiHome } from '@mdi/js';
 
 function Header(props) {
   const [show, setShow] = useState(false);
-  const [name, setName] = useState("Svatomartinská hostina");
+  const [name, setName] = useState(props.name);
   const [showModal, setShowModal] = useState(false);
 
   const openInput = () => setShow(true);
@@ -28,9 +28,9 @@ function Header(props) {
           {name}{' '}
           {props.userRole === "Creator" ? (
             <>
-              <Button variant="light" onClick={openInput}>
+              {props.mainPage === false ? (<Button variant="light" onClick={openInput}>
                 <Icon path={mdiPencil} size={1} />
-              </Button>
+              </Button>) : (null)}
             </>
           ) : (null)}
         </h1>
@@ -49,9 +49,11 @@ function Header(props) {
       )}
 
       <div className='p-2 ms-auto'>
-        <Button variant="light" onClick={openModal}>
-          <Icon path={mdiHome} size={1} />
-        </Button>
+        { props.mainPage === false ? (
+          <Button variant="light" onClick={openModal}>
+            <Icon path={mdiHome} size={1} />
+          </Button>) : (null)
+        }
       </div>
 
       <Modal show={showModal} onHide={closeModal}>
