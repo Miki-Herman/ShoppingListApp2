@@ -1,38 +1,75 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import Header from './bricks/listBricks/header';
 import ListGrid from './bricks/mainBricks/listGrid';
 import { Stack, Button } from 'react-bootstrap';
+import Icon from '@mdi/react';
+import { mdiThemeLightDark } from '@mdi/js';
 
+const cz = require('./translation/cz')
+const eng = require('./translation/eng')
 
 function App() {
 
+    const [user, setUser] = useState('TondaVondra');
+    const switchUser = () => {
+      setUser((userRole) => (userRole === "TondaVondra" ? "JandaPecinka" : "TondaVondra"));
+    };
 
-  const [user, setUser] = useState('TondaVondra');
-  const switchUser = () => {
-    setUser((userRole) => (userRole === "TondaVondra" ? "JandaPecinka" : "TondaVondra"));
-  };
+    const [theme, setTheme] = useState('light');
+    const [buttonVariant, setVariant] = useState('dark')
+    const [appTheme, setAppTheme] = useState('App-light')
+    const [textTheme, setTextTheme] = useState('text-dark')
+    const [headerTheme, setHeaderTheme] = useState('header-light')
+    const [listTheme, setListTheme] = useState('list-light')
 
-  return (
-    <div className='App'>
-      <div className='change-user'>
-      <Stack direction="horizontal" gap={3}>
-        <Button variant= "warning" onClick={switchUser}>Change User View</Button>
-        <h4>Current User: {user}</h4>
-      </Stack>
-      </div>
+    const switchTheme = () => {
+        setTheme((theme) => (theme === 'light' ? 'dark': 'light'))
+        setVariant((buttonVariant) => (buttonVariant === 'dark' ? 'light': 'dark'))
+        setAppTheme((appTheme) => (appTheme === 'App-light' ? 'App-dark': 'App-light'))
+        setTextTheme((textTheme) => (textTheme === 'text-dark' ? 'text-light': 'text-dark'))
+        setListTheme((listTheme) => (listTheme === 'list-light' ? 'list-dark': 'list-light'))
+        setHeaderTheme((headerTheme) => (headerTheme === 'header-light' ? 'header-dark': 'header-light'))
+    };
 
-      {/* My shopping lists part */}
-      <div className='header'><Header mainPage={true} name='My Shopping Lists'/></div>
-      <div className='list'><ListGrid userName={user} /></div>
+    const [textLang, setTextLang]= useState(eng)
 
-      {/* Invited to shopping lists part */}
-      <div className='header'><Header mainPage={true} name='Invited to shopping lists'/></div>
-      <div className='list'><ListGrid userName={user} invited={true}/></div>
+    const switchLangToCz = () => {
+        setTextLang((textLang ) => (textLang === eng ? cz : cz))
+        console.log(textLang)
+    }
 
-    </div>
-  );
+    const switchLangToEng = () => {
+        setTextLang((textLang ) => (textLang === cz ? eng : eng))
+        console.log(textLang)
+    }
+
+    return (
+        <div className={appTheme}>
+            <div className='change-user'>
+                <Stack direction="horizontal" gap={3}>
+                    <Button variant="warning" onClick={switchUser}>{textLang.currentUserButton}</Button>
+                    <h4 className={textTheme}>{textLang.currentUserText}: {user}</h4>
+                    <Button className='p-2 ms-auto' variant={buttonVariant} onClick={switchTheme}><Icon path={mdiThemeLightDark} size={1}/></Button>
+                </Stack>
+            </div>
+
+            {/* My shopping lists part */}
+            <div className={headerTheme}><h1>{textLang.myListHeader}</h1></div>
+            <div className={listTheme}><ListGrid theme={theme} userName={user} textLang={textLang} /></div>
+
+            {/* Invited to shopping lists part */}
+            <div className={headerTheme}><h1>{textLang.invitedListHeader}</h1></div>
+            <div className={listTheme}><ListGrid theme={theme} userName={user} invited={true} textLang={textLang}/></div>
+
+            <div className='languages'>
+                <Stack direction="horizontal" gap={1}>
+                    <Button variant={buttonVariant} onClick={switchLangToCz}>🇨🇿</Button>
+                    <Button variant={buttonVariant} onClick={switchLangToEng}>eng</Button>
+                </Stack>
+            </div>
+        </div>
+    );
 }
 
 export default App;

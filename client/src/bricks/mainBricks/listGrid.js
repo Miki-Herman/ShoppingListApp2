@@ -120,21 +120,24 @@ const ListGrid = (props) => {
       <div className="list">
         <div className="d-flex flex-wrap">
           {showList.map((list, index) => (
-            <ListTile key={index} invited={props.invited} items={list.items} users={list.invitedUsers} name={list.name} username={list.username} icon={list.icon} archived={list.archived} onDelete={() => deleteList(list.id)} onArchive={() => archiveList(list.id)}/>
+            <ListTile textLang={props.textLang} key={index} invited={props.invited} items={list.items} users={list.invitedUsers} name={list.name} username={list.username} icon={list.icon} archived={list.archived} theme={props.theme} onDelete={() => deleteList(list.id)} onArchive={() => archiveList(list.id)}/>
           ))}
         </div>
         
-        {!props.invited ? <Stack direction="horizontal" gap={2}><Button variant="primary" onClick={handleShowCreateModal}>Create List</Button><ShowArchived list={list} user={props.userName}/></Stack> : null}
+        {!props.invited ? <Stack direction="horizontal" gap={2}><Button variant="primary" onClick={handleShowCreateModal}>{props.textLang.createListButton}</Button><ShowArchived theme={props.theme} textLang={props.textLang} list={list} user={props.userName}/></Stack> : null}
         
         <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Add New List</Modal.Title>
+          <Modal.Header closeButton style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
+            <Modal.Title>{props.textLang.createListButton}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
             <Form>
               <Form.Group controlId="formName">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>{props.textLang.nameHeader}</Form.Label>
                 <Form.Control
+                    style={{
+                      background: (props.theme === 'dark'? 'grey': "white")
+                    }}
                   type="text"
                   placeholder="Enter name"
                   value={newName}
@@ -143,12 +146,12 @@ const ListGrid = (props) => {
               </Form.Group>
             </Form>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
             <Button variant="secondary" onClick={handleCloseCreateModal}>
-              Cancel
+              {props.textLang.closeButton}
             </Button>
             <Button variant="primary" onClick={createNewList}>
-              Add list
+              {props.textLang.createListButton}
             </Button>
           </Modal.Footer>
         </Modal>

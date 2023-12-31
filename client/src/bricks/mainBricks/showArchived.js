@@ -18,23 +18,23 @@ const ShowArchived = (props) => {
   return (
     <>
       <Button variant="info" onClick={handleShowModal}>
-        Show Archived
+        {props.textLang.showArchivedButton}
       </Button>
 
       <Modal show={showModal} onHide={handleCloseModal} size='lg'>
-        <Modal.Header closeButton>
-          <Modal.Title>Archived Lists</Modal.Title>
+        <Modal.Header closeButton style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
+          <Modal.Title>{props.textLang.archivedListHeader}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
           <div className="d-flex flex-wrap">
             {archivedLists.map((list, index) => (
-              <ListTile key={index} name={list.name} archived={list.archived} username={list.username} icon={list.icon} onUnArchive={props.onUnArchive  }/>
+              <ListTile textLang={props.textLang} key={index} name={list.name} archived={list.archived} username={list.username} icon={list.icon} onUnArchive={props.onUnArchive} theme={props.theme}/>
             ))}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Close
+            {props.textLang.closeButton}
           </Button>
         </Modal.Footer>
       </Modal>

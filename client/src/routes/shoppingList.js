@@ -10,7 +10,7 @@ const ShoppingListView = (props) => {
     <div className='App'>
 
       {/* Shopping list part */}
-      <div><Header userRole={props.userRole}/></div>
+      <div><Header userRole={props.userRole} name={props.name}/></div>
       <div><ShoppingList items={props.items}/></div>
 
       {/* User list part*/}
