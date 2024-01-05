@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ShoppingListView from '../../routes/shoppingList';
 import { Button, Modal, Stack } from 'react-bootstrap';
 import { mdiArchive, mdiCloseThick, mdiArchiveCancel, mdiEye  } from '@mdi/js';
+import StatePieChart from "../listBricks/pieChart";
 
 
 const ListTile = ({ textLang, name, username, users, icon, archived, items, onDelete, onArchive, onUnArchive, invited, theme }) => {
@@ -51,7 +52,6 @@ const ListTile = ({ textLang, name, username, users, icon, archived, items, onDe
                     <Button variant="danger" onClick={handleDelete}><Icon path={mdiCloseThick} size={1}/></Button>
                     {archived ? (<Button variant='warning' onClick={onUnArchive}><Icon path={mdiArchiveCancel} size={1}/></Button>) : (<Button variant='warning' onClick={onArchive}><Icon path={mdiArchive} size={1}/></Button>)}
                 </Stack>}
-
             </div>
 
             {/* Delete confirmation modal */}
@@ -89,6 +89,7 @@ const ListTile = ({ textLang, name, username, users, icon, archived, items, onDe
                 </Modal.Header>
                 <Modal.Body style={{background: (theme === 'dark'? 'gray': "white"), color: (theme === 'dark'? 'white': "black")}}>
                     <ShoppingListView mainPage={false} theme={theme} items={items} name={name} users={users} userRole={invited? 'User': 'Creator'}/>
+                    <StatePieChart data={items}/>
                 </Modal.Body>
                 <Modal.Footer style={{background: (theme === 'dark'? 'gray': "white"), color: (theme === 'dark'? 'white': "black")}}>
                 </Modal.Footer>

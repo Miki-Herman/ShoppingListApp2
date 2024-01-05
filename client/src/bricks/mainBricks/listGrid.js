@@ -9,68 +9,7 @@ import { Button, Modal, Form, Stack } from 'react-bootstrap';
 const icon = <Icon path={mdiNewspaper} size={1}/>
 
 const ListGrid = (props) => {
-  const [list, setLists] = useState([
-    { 
-      id: 1,
-      name: 'Svatomartinská husa',
-      username: 'TondaVondra', 
-      icon: icon,
-      archived: true,
-      items:[
-        { id: 1, name: 'Husa', quantity: 2, type: 'ks' },
-        { id: 2, name: 'Bílé zelí', quantity: 1, type: 'kg' },
-        { id: 3, name: 'Červené zelí', quantity: 3, type: 'g' },
-        { id: 4, name: 'Mouka', quantity: 5, type: 'ks' },
-        { id: 5, name: 'Rohlíky', quantity: 10, type: 'ks' },
-      ],
-      invitedUsers:['JandaPecinka']
-    },
-    { 
-      id: 2,
-      name: 'Měsíční nákup',
-      username: 'TondaVondra', 
-      icon: icon,
-      archived: false,
-      items:[],
-      invitedUsers:['JandaPecinka']
-    },
-    { 
-      id: 3,
-      name: 'Horbach',
-      username: 'TondaVondra', 
-      icon: icon,
-      archived: false,
-      items:[],
-      invitedUsers:[]
-    },
-    { 
-      id: 4,
-      name: 'Nákup Ikea',
-      username: 'TondaVondra', 
-      icon: icon,
-      archived: true,
-      items:[],
-      invitedUsers:['JandaPecinka']
-    },
-    { 
-      id: 5,
-      name: 'Nedělní oběd', 
-      username: 'JandaPecinka',
-      icon: icon,
-      archived: false,
-      items:[],
-      invitedUsers:['TondaVondra']
-    },
-    { 
-      id: 6,
-      name: 'Oslava narozenin', 
-      username: 'JandaPecinka',
-      icon: icon,
-      archived: true,
-      items:[],
-      invitedUsers:[]
-    },
-  ]);
+  const [list, setLists] = useState(props.list)
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newName, setNewName] = useState('');
@@ -106,12 +45,15 @@ const ListGrid = (props) => {
       username: props.userName,
       icon: icon,
       archived: false,
+      totalItems:0,
       items:[],
       invitedUsers:[]
     }
     setLists([...list, newList]);
     setShowCreateModal(false);
     setNewName('');
+
+    console.log(list)
   };
 
   const showList = props.invited ? list.filter(item => item.username !== props.userName && item.invitedUsers.includes(props.userName)) : list.filter(item => item.username === props.userName);
