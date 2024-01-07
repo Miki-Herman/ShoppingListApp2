@@ -14,7 +14,7 @@ const mockList = [
         archived: true,
         totalItems: 21,
         items:[
-            { id: 1, name: 'Husa', quantity: 2, type: 'ks', state: true },
+            { id: 1, name: 'Husa', quantity: 2, type: 'ks', state: false },
             { id: 2, name: 'Bílé zelí', quantity: 1, type: 'kg', state: false  },
             { id: 3, name: 'Červené zelí', quantity: 3, type: 'g', state: false  },
             { id: 4, name: 'Mouka', quantity: 5, type: 'ks', state: false  },

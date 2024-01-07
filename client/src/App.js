@@ -2,7 +2,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import ListGrid from './bricks/mainBricks/listGrid';
-import BarChartComponent from "./bricks/mainBricks/barChart";
 import mockList from "./mockDb/mockList";
 import { Stack, Button } from 'react-bootstrap';
 import Icon from '@mdi/react';
@@ -62,9 +61,6 @@ function App() {
             {/* Invited to shopping lists part */}
             <div className={headerTheme}><h1>{textLang.invitedListHeader}</h1></div>
             <div className={listTheme}><ListGrid list={mockList} theme={theme} userName={user} invited={true} textLang={textLang}/></div>
-
-            {/*Chart*/}
-             <div className="barchart"><BarChartComponent data={mockList}/></div>
 
             {/*Language buttons*/}
             <div className='languages'>

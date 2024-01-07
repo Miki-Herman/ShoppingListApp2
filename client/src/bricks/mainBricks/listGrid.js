@@ -5,11 +5,14 @@ import ShowArchived from './showArchived';
 import Icon from '@mdi/react';
 import { mdiNewspaper } from '@mdi/js';
 import { Button, Modal, Form, Stack } from 'react-bootstrap';
+import BarChartComponent from "./barChart";
 
 const icon = <Icon path={mdiNewspaper} size={1}/>
 
 const ListGrid = (props) => {
-  const [list, setLists] = useState(props.list)
+
+  const showList = props.invited ? props.list.filter(item => item.username !== props.userName && item.invitedUsers.includes(props.userName)) : props.list.filter(item => item.username === props.userName);
+  const [list, setLists] = useState(showList)
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newName, setNewName] = useState('');
@@ -56,39 +59,55 @@ const ListGrid = (props) => {
     console.log(list)
   };
 
-  const showList = props.invited ? list.filter(item => item.username !== props.userName && item.invitedUsers.includes(props.userName)) : list.filter(item => item.username === props.userName);
-
   return(
       <div className="list">
         <div className="d-flex flex-wrap">
-          {showList.map((list, index) => (
-            <ListTile textLang={props.textLang} key={index} invited={props.invited} items={list.items} users={list.invitedUsers} name={list.name} username={list.username} icon={list.icon} archived={list.archived} theme={props.theme} onDelete={() => deleteList(list.id)} onArchive={() => archiveList(list.id)}/>
+          {list.map((list, index) => (
+              <ListTile textLang={props.textLang} key={index} invited={props.invited} items={list.items}
+                        users={list.invitedUsers} name={list.name} username={list.username} icon={list.icon}
+                        archived={list.archived} theme={props.theme} onDelete={() => deleteList(list.id)}
+                        onArchive={() => archiveList(list.id)}/>
           ))}
         </div>
-        
-        {!props.invited ? <Stack direction="horizontal" gap={2}><Button variant="primary" onClick={handleShowCreateModal}>{props.textLang.createListButton}</Button><ShowArchived theme={props.theme} textLang={props.textLang} list={list} user={props.userName}/></Stack> : null}
-        
+
+        {!props.invited ? <Stack direction="horizontal" gap={2}><Button variant="primary"
+                                                                        onClick={handleShowCreateModal}>{props.textLang.createListButton}</Button><ShowArchived
+            theme={props.theme} textLang={props.textLang} list={list} user={props.userName}/></Stack> : null}
+
+        <div>
+          <div><BarChartComponent data={list}/></div>
+        </div>
+
         <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
-          <Modal.Header closeButton style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
+          <Modal.Header closeButton style={{
+            background: (props.theme === 'dark' ? 'gray' : "white"),
+            color: (props.theme === 'dark' ? 'white' : "black")
+          }}>
             <Modal.Title>{props.textLang.createListButton}</Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
+          <Modal.Body style={{
+            background: (props.theme === 'dark' ? 'gray' : "white"),
+            color: (props.theme === 'dark' ? 'white' : "black")
+          }}>
             <Form>
               <Form.Group controlId="formName">
                 <Form.Label>{props.textLang.nameHeader}</Form.Label>
                 <Form.Control
                     style={{
-                      background: (props.theme === 'dark'? 'grey': "white")
+                      background: (props.theme === 'dark' ? 'grey' : "white")
                     }}
-                  type="text"
-                  placeholder="Enter name"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
+                    type="text"
+                    placeholder="Enter name"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
-          <Modal.Footer style={{background: (props.theme === 'dark'? 'gray': "white"), color: (props.theme === 'dark'? 'white': "black")}}>
+          <Modal.Footer style={{
+            background: (props.theme === 'dark' ? 'gray' : "white"),
+            color: (props.theme === 'dark' ? 'white' : "black")
+          }}>
             <Button variant="secondary" onClick={handleCloseCreateModal}>
               {props.textLang.closeButton}
             </Button>

@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ShoppingListView from '../../routes/shoppingList';
 import { Button, Modal, Stack } from 'react-bootstrap';
 import { mdiArchive, mdiCloseThick, mdiArchiveCancel, mdiEye  } from '@mdi/js';
-import StatePieChart from "../listBricks/pieChart";
 
 
 const ListTile = ({ textLang, name, username, users, icon, archived, items, onDelete, onArchive, onUnArchive, invited, theme }) => {
@@ -89,7 +88,6 @@ const ListTile = ({ textLang, name, username, users, icon, archived, items, onDe
                 </Modal.Header>
                 <Modal.Body style={{background: (theme === 'dark'? 'gray': "white"), color: (theme === 'dark'? 'white': "black")}}>
                     <ShoppingListView mainPage={false} theme={theme} items={items} name={name} users={users} userRole={invited? 'User': 'Creator'}/>
-                    <StatePieChart data={items}/>
                 </Modal.Body>
                 <Modal.Footer style={{background: (theme === 'dark'? 'gray': "white"), color: (theme === 'dark'? 'white': "black")}}>
                 </Modal.Footer>
